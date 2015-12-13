@@ -71,6 +71,13 @@ public class MainWindow {
         //添加按钮
         addButton = new JButton("添加");
         addButton.setBounds(10,233,70,24);
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                EditWindow editWindow = new EditWindow(EditWindow.NO_TARGET);
+                editWindow.init();
+            }
+        });
         rootPanel.add(addButton);
 
         //编辑按钮
