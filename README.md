@@ -6,5 +6,11 @@
 Java编写
 跨平台,Swing界面,已在Kde/Windows10/Mac OS X测试
 
+##可供参考
+本程序部分代码可作为标准范例
+Java SQLite数据库操作(增删改查/创建表/参数化查询)
+JTable 动态数据
+Java 剪贴板操作
+
 ##开源许可
 GNU GENERAL PUBLIC LICENSE Version 2.0
