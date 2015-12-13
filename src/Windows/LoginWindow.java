@@ -18,7 +18,7 @@ public class LoginWindow{
     private static final String TEXT_WINDOW_TITLE = "身份确认";
     private static final String TEXT_INTER_PASSWORD = "请输入密码:";
     private static final int WINDOW_WIDTH = 300;//窗口宽度
-    private static final int WINDOW_HEIGHT = 200; //窗口高度
+    private static final int WINDOW_HEIGHT = 100; //窗口高度
     private JFrame rootFrame;
     private JPanel rootPanel;
     private JLabel interPasswordText;

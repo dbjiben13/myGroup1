@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
  */
 public class MainWindow {
     private static final String TEXT_WINDOW_TITLE = "密码管理";
-    private static final int WINDOW_WIDTH = 420;//窗口宽度
+    private static final int WINDOW_WIDTH = 405;//窗口宽度
     private static final int WINDOW_HEIGHT = 300; //窗口高度
     private JFrame rootFrame;
     private JPanel rootPanel;
@@ -50,38 +50,38 @@ public class MainWindow {
         //关键字输入框
         keywordTextFiled = new JTextField();
         keywordTextFiled.setBounds(10,10,200,24);
-        rootFrame.add(keywordTextFiled);
+        rootPanel.add(keywordTextFiled);
 
         //复制用户名按钮
         copyUserNameButton = new JButton("用户名");
         copyUserNameButton.setBounds(220,10,90,24);
-        rootFrame.add(copyUserNameButton);
+        rootPanel.add(copyUserNameButton);
 
         //复制密码按钮
         copyPasswordButton = new JButton("密码");
         copyPasswordButton.setBounds(320,10,70,24);
-        rootFrame.add(copyPasswordButton);
+        rootPanel.add(copyPasswordButton);
 
         //主要列表
         listTable = new JTable(dataModel);
         listScrollPane = new JScrollPane(listTable);
         listScrollPane.setBounds(10, 44, 380, 178);
-        rootFrame.add(listScrollPane);
+        rootPanel.add(listScrollPane);
 
         //添加按钮
         addButton = new JButton("添加");
         addButton.setBounds(10,233,70,24);
-        rootFrame.add(addButton);
+        rootPanel.add(addButton);
 
         //编辑按钮
         editButton = new JButton("编辑");
         editButton.setBounds(90,233,70,24);
-        rootFrame.add(editButton);
+        rootPanel.add(editButton);
 
         //删除按钮
         deleteButton = new JButton("删除");
         deleteButton.setBounds(170,233,70,24);
-        rootFrame.add(deleteButton);
+        rootPanel.add(deleteButton);
 
         //关闭按钮
         closeButton = new JButton("关闭");
@@ -92,7 +92,7 @@ public class MainWindow {
                 System.exit(0);
             }
         });
-        rootFrame.add(closeButton);
+        rootPanel.add(closeButton);
 
         rootFrame.setVisible(true);
     }
