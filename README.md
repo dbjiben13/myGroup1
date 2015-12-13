@@ -4,7 +4,7 @@
 
 ##技术信息
 Java编写\<br>
-跨平台,Swing界面,已在Kde/Windows10/Mac OS X测试
+跨平台,Swing界面,已在Linux(Kde)/Windows10/Mac OS X测试
 
 ##可供参考
 本程序部分代码可作为标准范例\<br>
