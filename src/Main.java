@@ -1,3 +1,4 @@
+import Manager.DBManager;
 import Manager.SoftwarePasswordManager;
 import Util.Utils;
 import Windows.LoginWindow;
@@ -14,7 +15,11 @@ public class Main {
 //            e.printStackTrace();
 //        }
 //        System.out.println("密码结果:" + SoftwarePasswordManager.getInstance().checkPassword("abcdefg"));
-
+        try {
+            DBManager dbManager = new DBManager();
+        } catch (DBManager.DBManagerException e) {
+            e.printStackTrace();
+        }
         final LoginWindow loginWindow = new LoginWindow();
         loginWindow.setLoginEventListener(new LoginWindow.LoginEventListener() {
             @Override
@@ -42,6 +47,14 @@ public class Main {
             }
         });
         loginWindow.init();
+//        String sql = "CREATE TABLE COMPANY " +
+//                "(ID INT PRIMARY KEY     NOT NULL," +
+//                " NAME           TEXT    NOT NULL, " +
+//                " AGE            INT     NOT NULL, " +
+//                " ADDRESS        CHAR(50), " +
+//                " SALARY         REAL)";
+//        DBManager dbManager = new DBManager();
+//        dbManager.test(sql);
     }
 
     public static void initMainWindow(){
