@@ -47,7 +47,7 @@ public class LoginWindow{
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                startLogin();
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) startLogin();
             }
         });
         rootPanel.add(passwordInputField);
