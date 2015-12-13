@@ -74,7 +74,7 @@ public class MainWindow {
         //复制密码按钮
         copyPasswordButton = new JButton("密码");
         copyPasswordButton.setBounds(320,10,70,24);
-        copyUserNameButton.addActionListener(new ActionListener() {
+        copyPasswordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if(currentListContent.size() > 0){ //有数据才进行操作
