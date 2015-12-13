@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PasswrodManager:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PasswrodManager_jar</output-path>
+    <root id="archive" name="PasswrodManager.jar">
+      <element id="module-output" name="PasswrodManager" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/sqlite-jdbc-3.8.11.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

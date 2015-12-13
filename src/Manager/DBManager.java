@@ -1,15 +1,18 @@
 package Manager;
 
+import Model.PasswordModel;
 import org.sqlite.JDBC;
 
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * 数据库
  * Created by attect on 15-12-13.
  */
 public class DBManager {
+    public static final int DB_ERROR_EXIT = 2374;
     private static final String DB_ADDRESS = "jdbc:sqlite:data.db";
     private static final int QUERY_FAILED = -1;
     private static final String TABLE_NAME = "T_PASSWORD";
@@ -22,7 +25,7 @@ public class DBManager {
     private static final String SQL_DELETE_PASSWORD_RECORD = "DELETE FROM " +  TABLE_NAME + " WHERE pid=?";                              //删
     private static final String SQL_UPDATE_PASSWORD_RECORD = "UPDATE " + TABLE_NAME + " SET keyword=?,username=?,password=? WHERE pid=?";//改
     private static final String SQL_SELECT_ALL_PASSWORD_RECORD = "SELECT pid,keyword,username,password FROM " + TABLE_NAME;              //查
-    private static final String SQL_SELECT_PASSWORD_RECORD_BY_KEYWORD = "SELECT pid,keyword,username,password FROM " + TABLE_NAME + " WHERE keyword=?";//关键字查
+    private static final String SQL_SELECT_PASSWORD_RECORD_BY_KEYWORD = "SELECT pid,keyword,username,password FROM " + TABLE_NAME + " WHERE keyword like \'%\'||?||\'%\'";//关键字查
 
     public DBManager() throws DBManagerException{
         File dbFile = new File("data.db");
@@ -33,21 +36,19 @@ public class DBManager {
 
     /**
      * 增加一个记录
-     * @param keyword   关键字
-     * @param username  用户名
-     * @param password  密码
+     * @param model 数据
      * @return 添加的行数
      * @throws DBManagerException
      */
-    public int addPasswordRecord(String keyword,String username,String password) throws DBManagerException{
+    public int addPasswordRecord(PasswordModel model) throws DBManagerException{
         Connection connection = null;
         PreparedStatement statement = null;
         try{
             connection = DriverManager.getConnection(DB_ADDRESS);
             statement = connection.prepareStatement(SQL_ADD_PASSWORD_RECORD); //参数化查询
-            statement.setString(1,keyword);     //关键字
-            statement.setString(2,username);    //用户名
-            statement.setString(3,password);    //密码
+            statement.setString(1,model.getKeyword());     //关键字
+            statement.setString(2,model.getUsername());    //用户名
+            statement.setString(3,model.getPassword());    //密码
             return statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -148,7 +149,7 @@ public class DBManager {
      * @return 结果集
      * @throws DBManagerException
      */
-    public PasswordModel[] selectPasswordRecord() throws DBManagerException{
+    public ArrayList<PasswordModel> selectPasswordRecord() throws DBManagerException{
         Connection connection = null;
         Statement statement = null;
         try{
@@ -183,7 +184,7 @@ public class DBManager {
      * @return
      * @throws DBManagerException
      */
-    public PasswordModel[] selectPasswordRecord(String keyword) throws DBManagerException{
+    public ArrayList<PasswordModel> selectPasswordRecord(String keyword) throws DBManagerException{
         Connection connection = null;
         PreparedStatement statement = null;
         try{
@@ -218,22 +219,17 @@ public class DBManager {
      * @param resultSet
      * @return
      */
-    private PasswordModel[] buildModelWithResultSet(ResultSet resultSet){
-        PasswordModel[] passwordModel = null;
+    private ArrayList<PasswordModel> buildModelWithResultSet(ResultSet resultSet){
+        ArrayList<PasswordModel> passwordModel = new ArrayList<PasswordModel>();
         try{
-            resultSet.last(); //移动到最后一行
-            int rowCount = resultSet.getRow(); //获取行数
-            resultSet.first(); //移动到第一行
-            if(rowCount == 0) return null;
-            passwordModel = new PasswordModel[rowCount];
-
-            int i = 0;
             while (resultSet.next()){
-                passwordModel[i].setId(resultSet.getInt("id"));
-                passwordModel[i].setKeyword(resultSet.getString("keyword"));
-                passwordModel[i].setUsername(resultSet.getString("username"));
-                passwordModel[i].setPassword(resultSet.getString("password"));
-                i++;
+                PasswordModel model = new PasswordModel();
+                model.setId(resultSet.getInt("pid"));
+                model.setKeyword(resultSet.getString("keyword"));
+                model.setUsername(resultSet.getString("username"));
+                model.setPassword(resultSet.getString("password"));
+                //System.out.println("pid:" + model.getId() + " keyword:" + model.getKeyword() + " username:" + model.getUsername() + " password:" + model.getPassword());
+                passwordModel.add(model);
             }
             return passwordModel;
         } catch (SQLException e) {
@@ -315,43 +311,6 @@ public class DBManager {
                     e.printStackTrace();
                 }
             }
-        }
-    }
-
-    public class PasswordModel{
-        private int id;
-        private String keyword,username,password;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getKeyword() {
-            return keyword;
-        }
-
-        public void setKeyword(String keyword) {
-            this.keyword = keyword;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
         }
     }
 
