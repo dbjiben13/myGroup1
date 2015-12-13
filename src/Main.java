@@ -8,15 +8,8 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        //System.out.println("width:" + Utils.getScreenDimension().width + " height:" + Utils.getScreenDimension().height + " isNewUser:" + SoftwarePasswordManager.getInstance().isNewUser());
-//        try{
-//            SoftwarePasswordManager.getInstance().setPassword("abcdefg");
-//        }catch (SoftwarePasswordManager.SoftwarePasswordException e){
-//            e.printStackTrace();
-//        }
-//        System.out.println("密码结果:" + SoftwarePasswordManager.getInstance().checkPassword("abcdefg"));
         try {
-            DBManager dbManager = new DBManager();
+            DBManager dbManager = new DBManager(); //提前创建一次数据库?
         } catch (DBManager.DBManagerException e) {
             e.printStackTrace();
         }
@@ -47,14 +40,7 @@ public class Main {
             }
         });
         loginWindow.init();
-//        String sql = "CREATE TABLE COMPANY " +
-//                "(ID INT PRIMARY KEY     NOT NULL," +
-//                " NAME           TEXT    NOT NULL, " +
-//                " AGE            INT     NOT NULL, " +
-//                " ADDRESS        CHAR(50), " +
-//                " SALARY         REAL)";
-//        DBManager dbManager = new DBManager();
-//        dbManager.test(sql);
+
     }
 
     public static void initMainWindow(){
