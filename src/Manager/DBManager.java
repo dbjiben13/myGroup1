@@ -14,10 +14,10 @@ public class DBManager {
     private static final int QUERY_FAILED = -1;
     private static final String TABLE_NAME = "T_PASSWORD";
     private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME +
-            "(pid INT PRIMARY KEY  autoincrement   NOT NULL," +          //PID 自增主键
-            " keyword           TEXT    NOT NULL, " +       //关键字
-            " username            INT     NOT NULL, " +     //用户名
-            " password        CHAR(50))";                   //密码
+            "(pid       INTEGER PRIMARY KEY," +     //PID 自增主键
+            " keyword   TEXT    NOT NULL, " +       //关键字
+            " username  INT     NOT NULL, " +       //用户名
+            " password  CHAR(50))";                 //密码
     private static final String SQL_ADD_PASSWORD_RECORD = "INSERT INTO " + TABLE_NAME + "(keyword,username,password) VALUES (?,?,?)";    //增
     private static final String SQL_DELETE_PASSWORD_RECORD = "DELETE FROM " +  TABLE_NAME + " WHERE pid=?";                              //删
     private static final String SQL_UPDATE_PASSWORD_RECORD = "UPDATE " + TABLE_NAME + " SET keyword=?,username=?,password=? WHERE pid=?";//改
@@ -177,12 +177,18 @@ public class DBManager {
         }
     }
 
+    /**
+     * 根据关键字查找记录
+     * @param keyword
+     * @return
+     * @throws DBManagerException
+     */
     public PasswordModel[] selectPasswordRecord(String keyword) throws DBManagerException{
         Connection connection = null;
         PreparedStatement statement = null;
         try{
             connection = DriverManager.getConnection(DB_ADDRESS);
-            statement = connection.prepareStatement(SQL_UPDATE_PASSWORD_RECORD); //参数化查询
+            statement = connection.prepareStatement(SQL_SELECT_PASSWORD_RECORD_BY_KEYWORD); //参数化查询
             statement.setString(1, keyword);
             ResultSet resultSet = statement.executeQuery();
             return buildModelWithResultSet(resultSet);
@@ -207,6 +213,11 @@ public class DBManager {
         }
     }
 
+    /**
+     * 根据ResultSet创建PasswordModel数组
+     * @param resultSet
+     * @return
+     */
     private PasswordModel[] buildModelWithResultSet(ResultSet resultSet){
         PasswordModel[] passwordModel = null;
         try{
