@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
  */
 public class MainWindow {
     private static final String TEXT_WINDOW_TITLE = "密码管理";
-    private static final int WINDOW_WIDTH = 400;//窗口宽度
+    private static final int WINDOW_WIDTH = 420;//窗口宽度
     private static final int WINDOW_HEIGHT = 300; //窗口高度
     private JFrame rootFrame;
     private JPanel rootPanel;
