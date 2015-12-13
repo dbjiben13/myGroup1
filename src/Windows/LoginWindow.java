@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * 登录窗口
@@ -41,43 +43,20 @@ public class LoginWindow{
 
         passwordInputField = new JPasswordField(16);
         passwordInputField.setEchoChar('#');
+        passwordInputField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                startLogin();
+            }
+        });
         rootPanel.add(passwordInputField);
 
         loginButton = new JButton("登录");
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String password = new String(passwordInputField.getPassword());
-                if(password.length() > 0 && password.length() < 17){ //密码长度有效才作出反应
-                    if(SoftwarePasswordManager.getInstance().isNewUser()){ //新用户
-                        try{
-                            if(SoftwarePasswordManager.getInstance().setPassword(password)){
-                                if(loginEventListener != null){
-                                    loginEventListener.onCorrect(); //密码正确
-                                }
-                            }else {
-                                if(loginEventListener != null){
-                                    loginEventListener.onWrong("文件操作错误");
-                                }
-                            }
-                        }catch (SoftwarePasswordManager.SoftwarePasswordException ee){
-                            ee.printStackTrace();
-                            if(loginEventListener != null){
-                                loginEventListener.onWrong(ee.getMessage());
-                            }
-                        }
-                    }else{
-                        if(SoftwarePasswordManager.getInstance().checkPassword(password)){
-                            if(loginEventListener!=null){
-                                loginEventListener.onCorrect();
-                            }
-                        }else{
-                            loginEventListener.onWrong("密码错误");
-                        }
-                    }
-                }else{
-                    if(loginEventListener != null) loginEventListener.onWrong("输入不规范");
-                }
+                startLogin();
             }
         });
         rootPanel.add(loginButton);
@@ -85,6 +64,40 @@ public class LoginWindow{
 
         //新用户
         if(SoftwarePasswordManager.getInstance().isNewUser() && loginEventListener!=null) loginEventListener.onNewUser();
+    }
+
+    private void startLogin(){
+        String password = new String(passwordInputField.getPassword());
+        if(password.length() > 0 && password.length() < 17){ //密码长度有效才作出反应
+            if(SoftwarePasswordManager.getInstance().isNewUser()){ //新用户
+                try{
+                    if(SoftwarePasswordManager.getInstance().setPassword(password)){
+                        if(loginEventListener != null){
+                            loginEventListener.onCorrect(); //密码正确
+                        }
+                    }else {
+                        if(loginEventListener != null){
+                            loginEventListener.onWrong("文件操作错误");
+                        }
+                    }
+                }catch (SoftwarePasswordManager.SoftwarePasswordException ee){
+                    ee.printStackTrace();
+                    if(loginEventListener != null){
+                        loginEventListener.onWrong(ee.getMessage());
+                    }
+                }
+            }else{
+                if(SoftwarePasswordManager.getInstance().checkPassword(password)){
+                    if(loginEventListener!=null){
+                        loginEventListener.onCorrect();
+                    }
+                }else{
+                    loginEventListener.onWrong("密码错误");
+                }
+            }
+        }else{
+            if(loginEventListener != null) loginEventListener.onWrong("输入不规范");
+        }
     }
 
     /**
