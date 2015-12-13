@@ -75,6 +75,8 @@ public class LoginWindow{
                             loginEventListener.onWrong("密码错误");
                         }
                     }
+                }else{
+                    if(loginEventListener != null) loginEventListener.onWrong("输入不规范");
                 }
             }
         });

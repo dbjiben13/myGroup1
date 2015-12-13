@@ -3,6 +3,8 @@ import Util.Utils;
 import Windows.LoginWindow;
 import Windows.MainWindow;
 
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("width:" + Utils.getScreenDimension().width + " height:" + Utils.getScreenDimension().height + " isNewUser:" + SoftwarePasswordManager.getInstance().isNewUser());
@@ -29,6 +31,8 @@ public class Main {
 
             @Override
             public void onWrong(String message) {
+                JOptionPane.showConfirmDialog(null,
+                        message, "错误", JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE, null);
                 System.out.println("错误：" + message);
             }
 
