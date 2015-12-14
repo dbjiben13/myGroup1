@@ -9,10 +9,10 @@ import java.util.ArrayList;
  */
 public class MainTableDataModel extends AbstractTableModel {
     private static final String[] columnName = {"编号", "关键字", "用户名", "密码"};
-    private ArrayList<PasswordModel> passwordModel;
+    private ArrayList<PasswordModel> passwordModels;
 
     public MainTableDataModel(ArrayList<PasswordModel> model){
-        passwordModel = model;
+        passwordModels = model;
     }
 
     public String getColumnName(int column) {
@@ -24,19 +24,19 @@ public class MainTableDataModel extends AbstractTableModel {
     }
 
     public int getRowCount() {
-        return passwordModel.size();
+        return passwordModels.size();
     }
 
-    public Object getValueAt(int row, int col) {
+    public Object getValueAt(int row, int col) { //row行 col列
         switch (col){
             case 0://编号,id
-                return passwordModel.get(row).getId();
+                return passwordModels.get(row).getId();
             case 1://关键字,keyword
-                return passwordModel.get(row).getKeyword();
+                return passwordModels.get(row).getKeyword();
             case 2://用户名,username
-                return passwordModel.get(row).getUsername();
+                return passwordModels.get(row).getUsername();
             case 3://密码,password
-                return passwordModel.get(row).getPassword();
+                return passwordModels.get(row).getPassword();
             default:
                 return "";
         }

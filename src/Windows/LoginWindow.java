@@ -63,7 +63,10 @@ public class LoginWindow{
         rootFrame.setVisible(true);
 
         //新用户
-        if(SoftwarePasswordManager.getInstance().isNewUser() && loginEventListener!=null) loginEventListener.onNewUser();
+        if(SoftwarePasswordManager.getInstance().isNewUser()){
+            rootFrame.setTitle("设置密码");
+            if(loginEventListener!=null) loginEventListener.onNewUser();
+        }
     }
 
     private void startLogin(){

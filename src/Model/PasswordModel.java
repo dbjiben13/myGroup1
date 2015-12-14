@@ -1,6 +1,7 @@
 package Model;
 
 /**
+ * 密码模型
  * Created by attect on 15-12-13.
  */
 public class PasswordModel{

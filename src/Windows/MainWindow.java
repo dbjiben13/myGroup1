@@ -128,16 +128,16 @@ public class MainWindow {
 
         //编辑按钮
         editButton = new JButton("编辑");
-        editButton.setBounds(90,233,70,24);
+        editButton.setBounds(90, 233, 70, 24);
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                try{
+                try {
                     EditWindow editWindow = new EditWindow(currentListContent.get(currentTableSelect));
                     editWindow.init();
                     editWindow.setDataEventListener(new EditItemListener());
-                }catch (ArrayIndexOutOfBoundsException e){
-                    Utils.showMessage("提示","请选中一行");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    Utils.showMessage("提示", "请选中一行");
                 }
 
             }
@@ -219,7 +219,7 @@ public class MainWindow {
     private void refreshTableWithData(ArrayList<PasswordModel> models){
         currentTableSelect = 0; //重新默认选择第0行
         currentListContent = models;//设置最新的数据
-        listTable.setModel(new MainTableDataModel(models));
+        listTable.setModel(new MainTableDataModel(models)); //模型转换
         System.gc();
     }
 

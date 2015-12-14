@@ -39,12 +39,12 @@ public class Main {
                 //System.out.println("新用户");
             }
         });
-        loginWindow.init();
+        loginWindow.init();//显示窗口
 
     }
 
     public static void initMainWindow(){
         MainWindow mainWindow = new MainWindow();
-        mainWindow.init();
+        mainWindow.init();//显示主窗口
     }
 }

@@ -1,7 +1,6 @@
 package Manager;
 
 import Model.PasswordModel;
-import org.sqlite.JDBC;
 
 import java.io.File;
 import java.sql.*;
@@ -18,9 +17,9 @@ public class DBManager {
     private static final String TABLE_NAME = "T_PASSWORD";
     private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME +
             "(pid       INTEGER PRIMARY KEY," +     //PID 自增主键
-            " keyword   TEXT    NOT NULL, " +       //关键字
-            " username  INT     NOT NULL, " +       //用户名
-            " password  CHAR(50))";                 //密码
+            " keyword   TEXT," +                    //关键字
+            " username  TEXT," +                    //用户名
+            " password  TEXT)";                     //密码
     private static final String SQL_ADD_PASSWORD_RECORD = "INSERT INTO " + TABLE_NAME + "(keyword,username,password) VALUES (?,?,?)";    //增
     private static final String SQL_DELETE_PASSWORD_RECORD = "DELETE FROM " +  TABLE_NAME + " WHERE pid=?";                              //删
     private static final String SQL_UPDATE_PASSWORD_RECORD = "UPDATE " + TABLE_NAME + " SET keyword=?,username=?,password=? WHERE pid=?";//改
