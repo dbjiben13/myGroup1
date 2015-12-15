@@ -151,15 +151,23 @@ public class DBManager {
     public ArrayList<PasswordModel> selectPasswordRecord() throws DBManagerException{
         Connection connection = null;
         Statement statement = null;
+        ResultSet resultSet = null;
         try{
             connection = DriverManager.getConnection(DB_ADDRESS);
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_PASSWORD_RECORD);
+            resultSet = statement.executeQuery(SQL_SELECT_ALL_PASSWORD_RECORD);
             return buildModelWithResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DBManagerException("查询全部记录时发生异常");
         }finally {
+            if(resultSet != null){
+                try{
+                    resultSet.close();
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
             if(statement!=null){
                 try{
                     statement.close();
@@ -186,16 +194,24 @@ public class DBManager {
     public ArrayList<PasswordModel> selectPasswordRecord(String keyword) throws DBManagerException{
         Connection connection = null;
         PreparedStatement statement = null;
+        ResultSet resultSet = null;
         try{
             connection = DriverManager.getConnection(DB_ADDRESS);
             statement = connection.prepareStatement(SQL_SELECT_PASSWORD_RECORD_BY_KEYWORD); //参数化查询
             statement.setString(1, keyword);
-            ResultSet resultSet = statement.executeQuery();
+            resultSet = statement.executeQuery();
             return buildModelWithResultSet(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DBManagerException("根据关键字查询时发生异常");
         }finally {
+            if(resultSet != null){
+                try{
+                    resultSet.close();
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
             if(statement!=null){
                 try{
                     statement.close();
